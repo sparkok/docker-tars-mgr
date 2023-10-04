@@ -162,7 +162,7 @@ func runLoop() {
 func tarLoop(reader *bufio.Reader) {
 
 	for {
-		fmt.Print("备份> q - 退出,l - 列表 或 输入序号进行备份。\n")
+		fmt.Print("备份> q - 退出,l - 列表 或 输入序号(小数点前面的部分,例如 1)进行备份。\n")
 		text, _ := reader.ReadString('\n')
 		text = strings.TrimSpace(text)
 
@@ -176,7 +176,7 @@ func tarLoop(reader *bufio.Reader) {
 		if backupNumber, err := strconv.Atoi(text); err == nil {
 			tar(backupNumber)
 		} else {
-			fmt.Println("Invalid input")
+			fmt.Println("无效的输入")
 		}
 	}
 
@@ -215,15 +215,15 @@ func tar(backupIndex int) {
 			return
 		}
 
-		if err = saveImageAsTar(dockerImage.ImageId, dockerImage.TarFile); err != nil {
-			fmt.Println("failed to save image as tar,%s", err.Error())
+		if err = saveImageAsTar(dockerImage.ImageId, fmt.Sprintf("%s.tar", dockerImage.TarFile)); err != nil {
+			fmt.Println("镜像备份失败,%s", err.Error())
 			return
 		}
 	}
 }
 
 func quit() {
-	fmt.Println("Exiting...")
+	fmt.Println("退出...\n")
 	os.Exit(0)
 }
 
