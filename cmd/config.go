@@ -17,7 +17,7 @@ func GetConfig() *Config {
 func (this *Config) GetBackupDir() string {
 	backupDir := os.Getenv("BACKUP_DIR")
 	if len(backupDir) == 0 {
-		return "./backup"
+		return "./docker-tars"
 	}
 	return backupDir
 }
